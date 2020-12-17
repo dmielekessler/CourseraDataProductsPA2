@@ -1,0 +1,30 @@
+---
+title: "Coursera Data Products Week 3 Peer Assessment"
+author: "David Kessler"
+date: "12/17/2020"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(plotly)
+```
+
+***
+
+```{r plotly, warning=FALSE, message=FALSE}
+dat <- mtcars
+dat$cyl <- as.factor(dat$cyl)
+dat$am <- ifelse(dat$am == 0, "Automatic", "Manual")
+fig <- ggplot(dat, aes(x = hp, y = mpg, size = wt, shape = am, color = cyl)) +
+    geom_point() + theme( legend.title = element_blank() )
+ggplotly( fig ) %>%
+  add_annotations( text="Transmission, Cyl", xref="paper", yref="paper",
+                  x=1.02, xanchor="left",
+                  y=0.8, yanchor="bottom",    # Same y as legend below
+                  legendtitle=TRUE, showarrow=FALSE ) %>%
+  layout( legend=list(y=0.8, yanchor="top" ) )
+```
+- Point size = car weight  
+
+## Thank you
